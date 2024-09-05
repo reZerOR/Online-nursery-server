@@ -11,4 +11,13 @@ router.post(
   ProductController.createProduct
 );
 
-export const ProductRoutes = router
+router.get("/", ProductController.getProducts);
+router.get("/:id", ProductController.getProductById);
+router.put(
+  "/:id",
+  validateRequest(ProductValidation.productSchema),
+  ProductController.updateById
+);
+router.delete("/:id", ProductController.deleteProduct);
+
+export const ProductRoutes = router;

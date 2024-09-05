@@ -1,8 +1,9 @@
-import { title } from "process";
 import Product from "./product.model";
 import { TProduct } from "./products.interface";
 import { AppError } from "../../errors/AppError";
 import httpStatus from "http-status";
+import QueryBuilder from "../../builder/QueryBuilder";
+const searchFields = ["title", "description", "category"];
 
 const createProductIntoDB = async (payload: TProduct) => {
   const isExist = await Product.findOne({ title: payload.title });
@@ -16,6 +17,37 @@ const createProductIntoDB = async (payload: TProduct) => {
   return result;
 };
 
+const getProdutsFromDB = async (query: Record<string, unknown>) => {
+  const productQuery = new QueryBuilder(Product.find(), query)
+    .search(searchFields)
+    .filter()
+    .paginate();
+
+  const result = await productQuery.modelQuery;
+  return result;
+};
+
+const getProuductByIdFromDB = async (id: string) => {
+  const result = await Product.findById(id);
+  return result;
+};
+
+const updateProductIntoDB = async (id: string, paylod: Partial<TProduct>) => {
+  const result = await Product.findOneAndUpdate({ _id: id }, paylod, {
+    new: true,
+  });
+  return result
+};
+
+const deleteProductFromDB = async(id: string)=>{
+  const result = await Product.findByIdAndDelete(id)
+  return result
+}
+
 export const ProductServices = {
   createProductIntoDB,
+  getProdutsFromDB,
+  getProuductByIdFromDB,
+  updateProductIntoDB,
+  deleteProductFromDB
 };
