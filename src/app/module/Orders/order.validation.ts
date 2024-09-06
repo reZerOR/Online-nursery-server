@@ -16,7 +16,7 @@ const shippingAddressSchema = z.object({
   country: z.string().min(1, { message: "Country is required" }),
 });
 
-export const orderSchema = z.object({
+const orderSchema = z.object({
   body: z.object({
     customerName: z.string().min(1, { message: "Customer name is required" }),
     customerEmail: z.string().email({ message: "Invalid email address" }),
@@ -29,3 +29,7 @@ export const orderSchema = z.object({
     paidAt: z.date().optional(),
   }),
 });
+
+export const OrderValidation = {
+    orderSchema
+}

@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
 import { TOrder } from "./order.interface";
-import { orderSchema } from "./order.validation";
 
 const OrderSchema = new Schema<TOrder>(
     {
@@ -50,7 +49,7 @@ const OrderSchema = new Schema<TOrder>(
       },
     },
     {
-      timestamps: true, // Automatically adds createdAt and updatedAt fields
+      timestamps: true,
     }
   );
 
