@@ -4,10 +4,12 @@ import { TCategory } from "./category.interface";
 import { Category } from "./category.model";
 
 const createCategoryIntoDB = async (payload: TCategory) => {
-  const isExist = await Category.find({ title: payload.title });
+  const isExist = await Category.findOne({ title: payload.title });
   if (isExist) {
     throw new AppError(httpStatus.BAD_REQUEST, "Category already exists");
   }
+  console.log(payload);
+  
   const result = await Category.create(payload);
   return result;
 };
