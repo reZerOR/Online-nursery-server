@@ -3,6 +3,7 @@ import { TProduct } from "./products.interface";
 import { AppError } from "../../errors/AppError";
 import httpStatus from "http-status";
 import QueryBuilder from "../../builder/QueryBuilder";
+import { Category } from "../Categories/category.model";
 const searchFields = ["title", "description", "category"];
 
 const createProductIntoDB = async (payload: TProduct) => {
@@ -13,6 +14,11 @@ const createProductIntoDB = async (payload: TProduct) => {
       "This product is already exists"
     );
   }
+  const isCategoryExits = await Category.findOne({title: payload.category})
+  if(!isCategoryExits){
+    throw new AppError(httpStatus.BAD_REQUEST, "Category does't exsits")
+  }
+
   const result = await Product.create(payload);
   return result;
 };

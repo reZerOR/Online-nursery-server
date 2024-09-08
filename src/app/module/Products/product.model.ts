@@ -1,19 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TProduct } from "./products.interface";
 
-export const categories = [
-  "Flowering Plants",
-  "Indoor Plants",
-  "Fruit Trees",
-  "Herbs & Medicinal Plants",
-  "Ornamental Plants",
-  "Vegetable Plants",
-  "Shrubs & Bushes",
-  "Climbers & Creepers",
-  "Aquatic Plants",
-  "Seeds & Bulbs",
-];
-
 const ProductSchema = new Schema<TProduct>(
   {
     title: {
@@ -38,7 +25,6 @@ const ProductSchema = new Schema<TProduct>(
     },
     category: {
       type: String,
-      enum: categories,
       required: true,
     },
     rating: {
