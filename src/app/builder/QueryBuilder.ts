@@ -34,11 +34,18 @@ class QueryBuilder<T> {
     return this;
   }
 
-//   sort() {
-//     const sort = (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
-//     this.modelQuery = this.modelQuery.sort(sort as string);
-//     return this;
-//   }
+  sort() {
+    const sortBy = this?.query?.sort as string;
+    if (sortBy === "priceLowToHigh") {
+      this.modelQuery = this.modelQuery.sort("price"); // Sort by price ascending
+    } else if (sortBy === "priceHighToLow") {
+      this.modelQuery = this.modelQuery.sort("-price"); // Sort by price descending
+    } else {
+      const sort = sortBy?.split(',')?.join(' ') || '-createdAt';
+      this.modelQuery = this.modelQuery.sort(sort);
+    }
+    return this;
+  }
 
   paginate() {
     const page = Number(this?.query?.page) || 1;

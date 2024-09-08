@@ -53,10 +53,12 @@ const deleteProduct = catchAsync(async(req, res)=>{
     })
 })
 
+
+
 export const ProductController = {
     createProduct,
     getProducts,
     getProductById,
     updateById,
-    deleteProduct
+    deleteProduct,
 }

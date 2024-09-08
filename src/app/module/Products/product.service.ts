@@ -27,7 +27,7 @@ const getProdutsFromDB = async (query: Record<string, unknown>) => {
   const productQuery = new QueryBuilder(Product.find(), query)
     .search(searchFields)
     .filter()
-    .paginate();
+    .sort()
 
   const result = await productQuery.modelQuery;
   return result;
@@ -49,11 +49,10 @@ const deleteProductFromDB = async(id: string)=>{
   const result = await Product.findByIdAndDelete(id)
   return result
 }
-
 export const ProductServices = {
   createProductIntoDB,
   getProdutsFromDB,
   getProuductByIdFromDB,
   updateProductIntoDB,
-  deleteProductFromDB
+  deleteProductFromDB,
 };
