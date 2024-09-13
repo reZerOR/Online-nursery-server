@@ -14,11 +14,11 @@ route.post(
 route.get("/", CategoryController.getCategory);
 
 route.put(
-  "/",
+  "/:id",
   validateRequest(CategoryValidation.categorySchema),
   CategoryController.updateACategory
 );
 
-route.delete("/", CategoryController.deleteCategory);
+route.delete("/:id", CategoryController.deleteCategory);
 
 export const CategoryRoutes = route;
